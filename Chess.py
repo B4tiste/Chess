@@ -113,27 +113,55 @@ class Roi_b:
         self.stand = stand
 
 
-pb1 = Pion_b('Pb1', 1, 0, 1)
-pb2 = Pion_b('Pb2', 1, 1, 1)
-pb3 = Pion_b('Pb3', 1, 2, 1)
-pb4 = Pion_b('Pb4', 1, 3, 1)
-pb5 = Pion_b('Pb5', 1, 4, 1)
-pb6 = Pion_b('Pb6', 1, 5, 1)
-pb7 = Pion_b('Pb7', 1, 6, 1)
-pb8 = Pion_b('Pb8', 1, 7, 1)
+p_b_1 = Pion_b('Pb1', 1, 0, 1)
+p_b_2 = Pion_b('Pb2', 1, 1, 1)
+p_b_3 = Pion_b('Pb3', 1, 2, 1)
+p_b_4 = Pion_b('Pb4', 1, 3, 1)
+p_b_5 = Pion_b('Pb5', 1, 4, 1)
+p_b_6 = Pion_b('Pb6', 1, 5, 1)
+p_b_7 = Pion_b('Pb7', 1, 6, 1)
+p_b_8 = Pion_b('Pb8', 1, 7, 1)
 
-pw1 = Pion_b('Pw1', 1, 0, 1)
-pw2 = Pion_b('Pw2', 1, 1, 1)
-pw3 = Pion_b('Pw3', 1, 2, 1)
-pw4 = Pion_b('Pw4', 1, 3, 1)
-pw5 = Pion_b('Pw5', 1, 4, 1)
-pw6 = Pion_b('Pw6', 1, 5, 1)
-pw7 = Pion_b('Pw7', 1, 6, 1)
-pw8 = Pion_b('Pw8', 1, 7, 1)
+p_w_1 = Pion_b('Pw1', 1, 0, 1)
+p_w_2 = Pion_b('Pw2', 1, 1, 1)
+p_w_3 = Pion_b('Pw3', 1, 2, 1)
+p_w_4 = Pion_b('Pw4', 1, 3, 1)
+p_w_5 = Pion_b('Pw5', 1, 4, 1)
+p_w_6 = Pion_b('Pw6', 1, 5, 1)
+p_w_7 = Pion_b('Pw7', 1, 6, 1)
+p_w_8 = Pion_b('Pw8', 1, 7, 1)
 
+t_b_1 = Tour_b('Tb1', 0, 0, 1)
+t_b_2 = Tour_b('Tb2', 0, 7, 1)
 
-pions_w = [pw1, pw2, pw3, pw4, pw4, pw6, pw7, pw8]
-pions_b = [pb1, pb2, pb3, pb4, pb4, pb6, pb7, pb8]
+t_w_1 = Tour_w('Tw1', 7, 0, 1)
+t_w_2 = Tour_w('Tw2', 7, 7, 1)
+
+cav_b_1 = Cav_b('Cavb1', 0, 1, 1)
+cav_b_2 = Cav_b('Cavb2', 0, 6, 1)
+
+cav_w_1 = Cav_w('Cavw1', 7, 1, 1)
+cav_w_2 = Cav_w('Cavw1', 7, 6, 1)
+
+fou_b_1 = Fou_b('Foub1', 0, 2, 1)
+fou_b_2 = Fou_b('Foub2', 0, 5, 1)
+
+fou_w_1 = Fou_w('Fouw1', 7, 2, 1)
+fou_w_2 = Fou_w('Fouw1', 7, 5, 1)
+
+reine_b = Reine_b('Reineb', 0, 3, 1)
+
+reine_w = Reine_w('Reinew', 7, 3, 1)
+
+roi_b = Roi_b('Roib', 0, 4, 1)
+
+roi_w = Roi_w('Roiw', 7, 4, 1)
+
+pions_b = [p_b_1, p_b_2, p_b_3, p_b_4, p_b_4, p_b_6, p_b_7, p_b_8]
+pions_w = [p_w_1, p_w_2, p_w_3, p_w_4, p_w_4, p_w_6, p_w_7, p_w_8]
+
+pieces_b = [t_b_1, cav_b_1, fou_b_1, reine_b, roi_b, fou_b_2, cav_b_2, t_b_2]
+pieces_w = [t_w_1, cav_w_1, fou_w_1, reine_w, roi_w, fou_w_2, cav_w_2, t_w_2]
 
 
 # Change this value according to your screen refresh rate (60Hz for instance):
@@ -148,19 +176,21 @@ echiquier = [[0, 1, 0, 1, 0, 1, 0, 1],
              [0, 1, 0, 1, 0, 1, 0, 1],
              [1, 0, 1, 0, 1, 0, 1, 0]]
 
-echiquier_start = [['Tb', 'Cb', 'Fb', 'Db', 'Rb', 'Fb', 'Cb', 'Tb'],
-                   ['Pb1', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
+echiquier_start = [pieces_b,
+                   pions_b,
                    [0, 1, 0, 1, 0, 1, 0, 1],
                    [1, 0, 1, 0, 1, 0, 1, 0],
                    [0, 1, 0, 1, 0, 1, 0, 1],
                    [1, 0, 1, 0, 1, 0, 1, 0],
-                   ['Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw'],
-                   ['Tw', 'Cw', 'Fw', 'Dw', 'Rw', 'Fw', 'Cw', 'Tw']]
+                   pions_w,
+                   pieces_w]
 
-print(np.matrix(echiquier))
-print('\n')
-print(np.matrix(echiquier_start))
-print(echiquier_start[1][0])
+for y in range(8):
+    for x in range(8):
+        try :
+            print(echiquier_start[y][x].name)
+        except :
+            print(echiquier_start[y][x])
 
 
 # def update():
