@@ -14,8 +14,9 @@ ech_display = [['Tb', 'Cb', 'Fb', 'Db', 'Rb', 'Fb', 'Cb', 'Tb'],
 def update():
     if held_keys['escape']:
         exit()
-    '''if held_keys['a']:
-        grid.texture = white_cube'''
+    if held_keys['c']:
+        print(camera.position)
+
 
 
 app = Ursina()
@@ -46,8 +47,12 @@ for lines in range(8):
         b.text_entity.scale = 1
 # t = time.time()
 grid_layout(p.children, max_x=8, max_y=8, origin=(0, .5), spacing=(.15, 0))
-center = Entity(parent=camera.ui, model=Circle(), scale=.005, color=color.lime)
-EditorCamera()
+#center = Entity(parent=camera.ui, model=Circle(), scale=.005, color=color.lime)
+#EditorCamera()
 # print(time.time() - t)
+
+b.on_click = print(b.text)
+
+camera.position = (0,-0.4,-2)
 
 app.run()
