@@ -47,7 +47,7 @@ for lines in range(8):
 # t = time.time()
 grid_layout(p.children, max_x=8, max_y=8, origin=(0, .5), spacing=(.15, 0))
 center = Entity(parent=camera.ui, model=Circle(), scale=.005, color=color.lime)
-# EditorCamera()
+EditorCamera()
 # print(time.time() - t)
 
 app.run()
