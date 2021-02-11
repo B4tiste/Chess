@@ -17,6 +17,7 @@ def update():
     if held_keys['c']:
         print(camera.position)
 
+    # b.on_click = print(b.text)
 
 
 app = Ursina()
@@ -25,34 +26,38 @@ app = Ursina()
 # EditorCamera()
 
 # center = Entity(model='quad', scale=.1, color=color.red)
-p = Entity()
+echiquier = Entity()
 for lines in range(8):
     for colums in range(8):
         x = lines % 2
         y = colums % 2
         if x == 1:
             if y == 1:
-                b = Button(parent=p, model='quad', scale=Vec2(.1, .1),
-                           text=ech_display[lines][colums], color=color.dark_gray)
+                case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                              text=ech_display[lines][colums], color=color.dark_gray)
             elif y == 0:
-                b = Button(parent=p, model='quad', scale=Vec2(.1, .1),
-                           text=ech_display[lines][colums], color=color.gray)
+                case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                              text=ech_display[lines][colums], color=color.gray)
         elif x == 0:
             if y == 1:
-                b = Button(parent=p, model='quad', scale=Vec2(.1, .1),
-                           text=ech_display[lines][colums], color=color.gray)
+                case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                              text=ech_display[lines][colums], color=color.gray)
             elif y == 0:
-                b = Button(parent=p, model='quad', scale=Vec2(.1, .1),
-                           text=ech_display[lines][colums], color=color.dark_gray)
-        b.text_entity.scale = 1
+                case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                              text=ech_display[lines][colums], color=color.dark_gray)
+        case.text_entity.scale = 1
 # t = time.time()
-grid_layout(p.children, max_x=8, max_y=8, origin=(0, .5), spacing=(.15, 0))
-#center = Entity(parent=camera.ui, model=Circle(), scale=.005, color=color.lime)
-#EditorCamera()
+grid_layout(echiquier.children, max_x=8, max_y=8,
+            origin=(0, .5), spacing=(.15, 0))
+# center = Entity(parent=camera.ui, model=Circle(), scale=.005, color=color.lime)
+# EditorCamera()
 # print(time.time() - t)
 
-b.on_click = print(b.text)
+camera.position = (0, -0.4, -2)
 
-camera.position = (0,-0.4,-2)
+print("TEST")
+print(echiquier.children[8].text)
+print("TEST")
+
 
 app.run()

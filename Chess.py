@@ -7,14 +7,12 @@ github.com/B4tiste/TargetHunter
 @author: B4tiste
 """
 
-# from ursina import *  # Import all the Ursina lib
+from ursina import *  # Import all the Ursina lib
+# from lib_chess import *
 import random
 import time
 import os
 import numpy as np
-
-
-def clear(): return os.system('cls')
 
 
 class Pion_w:
@@ -24,6 +22,11 @@ class Pion_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        print("a")
+        echiquier.children[mouse.hovered_entity.coord[0]
+                           ][mouse.hovered_entity.coord[1]].color = color.green
+
 
 class Pion_b:
     def __init__(self, name, lines, colums, stand):
@@ -31,6 +34,10 @@ class Pion_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.coord(
+            0)][mouse.hovered_entity.coord(1)].color = color.red
 
 
 class Tour_w:
@@ -40,6 +47,10 @@ class Tour_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
 
 class Tour_b:
     def __init__(self, name, lines, colums, stand):
@@ -47,6 +58,10 @@ class Tour_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
 
 
 class Cav_w:
@@ -56,6 +71,10 @@ class Cav_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
 
 class Cav_b:
     def __init__(self, name, lines, colums, stand):
@@ -63,6 +82,10 @@ class Cav_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
 
 
 class Fou_w:
@@ -72,6 +95,10 @@ class Fou_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
 
 class Fou_b:
     def __init__(self, name, lines, colums, stand):
@@ -79,6 +106,10 @@ class Fou_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
 
 
 class Reine_w:
@@ -88,6 +119,10 @@ class Reine_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
 
 class Reine_b:
     def __init__(self, name, lines, colums, stand):
@@ -95,6 +130,10 @@ class Reine_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
 
 
 class Roi_w:
@@ -104,6 +143,10 @@ class Roi_w:
         self.colums = colums
         self.stand = stand
 
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
 
 class Roi_b:
     def __init__(self, name, lines, colums, stand):
@@ -111,6 +154,23 @@ class Roi_b:
         self.lines = lines
         self.colums = colums
         self.stand = stand
+
+    def show_move():
+        echiquier.children[mouse.hovered_entity.colums][mouse.hovered_entity.lines +
+                                                        1].color = color.green
+
+
+class case_vide:
+    def __init__(self, name, lines, colums):
+        self.name = name
+        self.lines = lines
+        self.colums = colums
+
+    def show_move():
+        print('')
+
+
+def clear(): return os.system('cls')
 
 
 p_b_1 = Pion_b('Pb1', 1, 0, 1)
@@ -147,7 +207,7 @@ fou_b_1 = Fou_b('Foub1', 0, 2, 1)
 fou_b_2 = Fou_b('Foub2', 0, 5, 1)
 
 fou_w_1 = Fou_w('Fouw1', 7, 2, 1)
-fou_w_2 = Fou_w('Fouw1', 7, 5, 1)
+fou_w_2 = Fou_w('Fouw2', 7, 5, 1)
 
 reine_b = Reine_b('Reineb', 0, 3, 1)
 
@@ -167,6 +227,12 @@ pieces_w = [t_w_1, cav_w_1, fou_w_1, reine_w, roi_w, fou_w_2, cav_w_2, t_w_2]
 # Change this value according to your screen refresh rate (60Hz for instance):
 REFRESH_RATE = 60
 
+TEXT_CASE_VIDE = ' '
+c = (0, 0)
+cpt = 0
+
+window.borderless = False
+
 echiquier = [[0, 1, 0, 1, 0, 1, 0, 1],
              [1, 0, 1, 0, 1, 0, 1, 0],
              [0, 1, 0, 1, 0, 1, 0, 1],
@@ -178,25 +244,172 @@ echiquier = [[0, 1, 0, 1, 0, 1, 0, 1],
 
 echiquier_start = [pieces_b,
                    pions_b,
-                   [0, 1, 0, 1, 0, 1, 0, 1],
-                   [1, 0, 1, 0, 1, 0, 1, 0],
-                   [0, 1, 0, 1, 0, 1, 0, 1],
-                   [1, 0, 1, 0, 1, 0, 1, 0],
+                   ['', '', '', '', '', '', '', '', ''],
+                   ['', '', '', '', '', '', '', '', ''],
+                   ['', '', '', '', '', '', '', '', ''],
+                   ['', '', '', '', '', '', '', '', ''],
                    pions_w,
                    pieces_w]
 
+'''
 for y in range(8):
     for x in range(8):
-        try :
+        try:
             print(echiquier_start[y][x].name)
-        except :
-            print(echiquier_start[y][x])
+        except:
+            print(echiquier_start[y][x])'''
 
 
-# def update():
+ech_display_string = [['Tb', 'Cb', 'Fb', 'Db', 'Rb', 'Fb', 'Cb', 'Tb'],
+                      ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
+                      ['0', '1', '0', '1', '0', '1', '0', '1'],
+                      ['1', '0', '1', '0', '1', '0', '1', '0'],
+                      ['0', '1', '0', '1', '0', '1', '0', '1'],
+                      ['1', '0', '1', '0', '1', '0', '1', '0'],
+                      ['Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw'],
+                      ['Tw', 'Cw', 'Fw', 'Dw', 'Rw', 'Fw', 'Cw', 'Tw']]
 
 
-# app = Ursina()
+def available_move():
+
+    global c
+
+    echiquier.children[((c[1] * 8) + c[0]) + 8].color = color.red
 
 
-# app.run()
+def reset_show():
+
+    global echiquier
+    global c
+
+    print('reset')
+
+    for lignes in range(8):
+        for colonnes in range(8):
+            x = lignes % 2
+            y = colonnes % 2
+            if x == 1:
+                if y == 1:
+                    try:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.dark_gray
+                    except:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.dark_gray
+                elif y == 0:
+                    try:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.gray
+                    except:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.gray
+            elif x == 0:
+                if y == 1:
+                    try:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.gray
+                    except:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.gray
+                elif y == 0:
+                    try:
+                        echiquier.children[(lignes * 8) + colonnes
+                                           ].color = color.dark_gray
+                    except:
+                        echiquier.children[(lignes * 8) +
+                                           colonnes].color = color.dark_gray
+
+
+def update():
+
+    global cpt
+    global c
+
+    if cpt == 60:
+        cpt = 0
+    else:
+        cpt = cpt + 1
+
+    if held_keys['escape']:
+        exit()
+    if held_keys['c']:
+        print(camera.position)
+
+    if (cpt % 30) == 0:
+        try:
+            c = mouse.hovered_entity.coord
+            print(c)
+            # print(echiquier.children[(c[1] * 8) + c[0]].text)
+
+            print_on_screen(
+                'Colonne : ' + str(mouse.hovered_entity.coord[0]+1) + '\n' + 'Ligne : ' + str(mouse.hovered_entity.coord[1]+1))
+            # print(mouse.hovered_entity.color)
+
+            if mouse.hovered_entity.text != ' ':
+                available_move()
+            else:
+                reset_show()
+        except:
+            reset_show()
+
+
+app = Ursina()
+
+# grid = Entity(model=Grid(8, 8))
+
+'''
+    echiquier -> Plateau
+    case -> Children de echiquier
+    echiquier.children -> Tableau de case
+'''
+
+echiquier = Entity()
+
+for l in range(8):
+    for c in range(8):
+        x = l % 2
+        y = c % 2
+        if x == 1:
+            if y == 1:
+                try:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1), text=echiquier_start[l][c].name, coord=(
+                        c, l), color=color.dark_gray, on_click=print(echiquier_start[l][c].name))
+                except:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=TEXT_CASE_VIDE, coord=(c, l), color=color.dark_gray, on_click=print(TEXT_CASE_VIDE))
+            elif y == 0:
+                try:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=echiquier_start[l][c].name, coord=(c, l), color=color.gray, on_click=print(echiquier_start[l][c].name))
+                except:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=TEXT_CASE_VIDE, coord=(c, l), color=color.gray, on_click=print(TEXT_CASE_VIDE))
+        elif x == 0:
+            if y == 1:
+                try:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=echiquier_start[l][c].name, coord=(c, l), color=color.gray, on_click=print(echiquier_start[l][c].name))
+                except:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=TEXT_CASE_VIDE, coord=(c, l), color=color.gray, on_click=print(TEXT_CASE_VIDE))
+            elif y == 0:
+                try:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=echiquier_start[l][c].name, coord=(c, l), color=color.dark_gray, on_click=print(echiquier_start[l][c].name))
+                except:
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
+                                  text=TEXT_CASE_VIDE, coord=(c, l), color=color.dark_gray, on_click=print(TEXT_CASE_VIDE))
+        case.text_entity.scale = 0.5
+
+grid_layout(echiquier.children, max_x=8, max_y=8,
+            origin=(0, .5), spacing=(.15, 0))
+
+# EditorCamera()
+
+camera.position = (0, -0.4, -2)
+
+print("TEST")
+print(echiquier.children[8].text)
+print("TEST")
+
+app.run()
