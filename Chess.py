@@ -335,6 +335,9 @@ def update():
     if held_keys['c']:
         print(camera.position)
 
+    if held_keys['r']:
+        reset_show()
+
     if (cpt % 30) == 0:
         try:
             c = mouse.hovered_entity.coord
