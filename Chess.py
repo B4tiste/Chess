@@ -112,7 +112,7 @@ class Fou_b:
                                                         1].color = color.green
 
 
-class Reine_w:
+class Queen_w:
     def __init__(self, name, lines, colums, stand):
         self.name = name
         self.lines = lines
@@ -124,7 +124,7 @@ class Reine_w:
                                                         1].color = color.green
 
 
-class Reine_b:
+class Queen_b:
     def __init__(self, name, lines, colums, stand):
         self.name = name
         self.lines = lines
@@ -191,11 +191,11 @@ p_w_6 = Pion_b('Pw6', 1, 5, 1)
 p_w_7 = Pion_b('Pw7', 1, 6, 1)
 p_w_8 = Pion_b('Pw8', 1, 7, 1)
 
-t_b_1 = Tour_b('Tb1', 0, 0, 1)
-t_b_2 = Tour_b('Tb2', 0, 7, 1)
+t_b_1 = Tour_b('Tob1', 0, 0, 1)
+t_b_2 = Tour_b('Tob2', 0, 7, 1)
 
-t_w_1 = Tour_w('Tw1', 7, 0, 1)
-t_w_2 = Tour_w('Tw2', 7, 7, 1)
+t_w_1 = Tour_w('Tow1', 7, 0, 1)
+t_w_2 = Tour_w('Tow2', 7, 7, 1)
 
 cav_b_1 = Cav_b('Cavb1', 0, 1, 1)
 cav_b_2 = Cav_b('Cavb2', 0, 6, 1)
@@ -209,9 +209,9 @@ fou_b_2 = Fou_b('Foub2', 0, 5, 1)
 fou_w_1 = Fou_w('Fouw1', 7, 2, 1)
 fou_w_2 = Fou_w('Fouw2', 7, 5, 1)
 
-reine_b = Reine_b('Reineb', 0, 3, 1)
+queen_b = Queen_b('Queenb', 0, 3, 1)
 
-reine_w = Reine_w('Reinew', 7, 3, 1)
+queen_w = Queen_w('Queenw', 7, 3, 1)
 
 roi_b = Roi_b('Roib', 0, 4, 1)
 
@@ -220,8 +220,8 @@ roi_w = Roi_w('Roiw', 7, 4, 1)
 pions_b = [p_b_1, p_b_2, p_b_3, p_b_4, p_b_4, p_b_6, p_b_7, p_b_8]
 pions_w = [p_w_1, p_w_2, p_w_3, p_w_4, p_w_4, p_w_6, p_w_7, p_w_8]
 
-pieces_b = [t_b_1, cav_b_1, fou_b_1, reine_b, roi_b, fou_b_2, cav_b_2, t_b_2]
-pieces_w = [t_w_1, cav_w_1, fou_w_1, reine_w, roi_w, fou_w_2, cav_w_2, t_w_2]
+pieces_b = [t_b_1, cav_b_1, fou_b_1, queen_b, roi_b, fou_b_2, cav_b_2, t_b_2]
+pieces_w = [t_w_1, cav_w_1, fou_w_1, queen_w, roi_w, fou_w_2, cav_w_2, t_w_2]
 
 
 # Change this value according to your screen refresh rate (60Hz for instance):
@@ -274,7 +274,15 @@ def available_move():
 
     global c
 
-    echiquier.children[((c[1] * 8) + c[0]) + 8].color = color.red
+    id_current_tile = (c[1] * 8) + c[0]
+    current_tile = echiquier.children[id_current_tile]
+
+    # echiquier.children[((c[1] * 8) + c[0]) + 8].color = color.red
+    print(current_tile.text[0:2])
+
+    if current_tile.text[0:2] == 'Fo':
+        for n in range(7):
+            # echiquier.children[(n+1) * ].color = color.red
 
 
 def reset_show():
@@ -378,8 +386,8 @@ for l in range(8):
                     case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1), text=echiquier_start[l][c].name, coord=(
                         c, l), color=color.dark_gray, on_click=print(echiquier_start[l][c].name))
                 except:
-                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
-                                  text=TEXT_CASE_VIDE, coord=(c, l), color=color.dark_gray, on_click=print(TEXT_CASE_VIDE))
+                    case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1), text=TEXT_CASE_VIDE, coord=(
+                        c, l), color=color.dark_gray, on_click=print(TEXT_CASE_VIDE))
             elif y == 0:
                 try:
                     case = Button(parent=echiquier, model='quad', scale=Vec2(.1, .1),
