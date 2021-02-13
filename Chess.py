@@ -231,6 +231,15 @@ TEXT_CASE_VIDE = ' '
 c = (0, 0)
 cpt = 0
 
+n = 0
+ne = 0
+e = 0
+se = 0
+s = 0
+so = 0
+o = 0
+no = 0
+
 window.borderless = False
 
 echiquier = [[0, 1, 0, 1, 0, 1, 0, 1],
@@ -242,23 +251,14 @@ echiquier = [[0, 1, 0, 1, 0, 1, 0, 1],
              [0, 1, 0, 1, 0, 1, 0, 1],
              [1, 0, 1, 0, 1, 0, 1, 0]]
 
-echiquier_start = [pieces_b,
-                   pions_b,
-                   ['', '', '', '', '', '', '', '', ''],
-                   ['', '', '', '', '', '', '', '', ''],
-                   ['', '', '', '', '', '', '', '', ''],
-                   ['', '', '', '', '', '', '', '', ''],
+echiquier_start = [[t_b_1, cav_b_1, ' ', queen_b, roi_b, fou_b_2, cav_b_2, t_b_2],
+                   [p_b_1, p_b_2, p_b_3, p_b_4, p_b_4, p_b_6, p_b_7, p_b_8],
+                   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', fou_b_1, ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                    pions_w,
                    pieces_w]
-
-'''
-for y in range(8):
-    for x in range(8):
-        try:
-            print(echiquier_start[y][x].name)
-        except:
-            print(echiquier_start[y][x])'''
-
 
 ech_display_string = [['Tb', 'Cb', 'Fb', 'Db', 'Rb', 'Fb', 'Cb', 'Tb'],
                       ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
@@ -269,28 +269,111 @@ ech_display_string = [['Tb', 'Cb', 'Fb', 'Db', 'Rb', 'Fb', 'Cb', 'Tb'],
                       ['Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw'],
                       ['Tw', 'Cw', 'Fw', 'Dw', 'Rw', 'Fw', 'Cw', 'Tw']]
 
+t = 0
+var = 0
+
+
+def test():
+
+    #clear()
+    global c
+
+    #print("ctes " + str(c))
+
+    id_current_tile = c
+
+    y = c[0]
+    x = c[1]
+
+    '''print('c:')
+    print(id_current_tile)
+    print(echiquier.children)'''
+
+    echiquier_table = list_to_table(echiquier.children, echiquier_tab)
+
+    current_tile = echiquier_table[c[1]][c[0]]
+    target = (x, y)
+    print('cttext : ' + str(current_tile.text[0:2]))
+    print('target' + str(target))
+
+    if current_tile.text[0:2] == 'Fo':
+        #print(echiquier_table[target[0]][target[1]].color)
+        print("text de la case en " + str(target[0]) + str(target[1]) + " :" + str(echiquier_table[target[0]][target[1]].text) + '.')
+        #echiquier_table[target[1]+1][target[0]+1].color = color.cyan
+
+        while echiquier_table[target[0]+1][target[1]+1].text == ' ':
+            print("a")
+            echiquier_table[target[0]+1][target[1]+1].color = color.red
+            print("target before" + str(target))
+            target = (target[0]+1, target[1]+1)
+            print("target after" + str(target))
+        
+
 
 def available_move():
 
     global c
 
+    global n
+    global ne
+    global e
+    global se
+    global s
+    global so
+    global o
+    global no
+
+    global t
+
     id_current_tile = (c[1] * 8) + c[0]
+    se = id_current_tile + 9
+    no = id_current_tile - 9
+    so = id_current_tile + 7
+    ne = id_current_tile - 7
     current_tile = echiquier.children[id_current_tile]
 
     # echiquier.children[((c[1] * 8) + c[0]) + 8].color = color.red
     print(current_tile.text[0:2])
 
     if current_tile.text[0:2] == 'Fo':
-        for n in range(7):
-            # echiquier.children[(n+1) * ].color = color.red
+        if t == 0:
+
+            while echiquier.children[se].text == ' ':
+
+                echiquier.children[se].color = color.cyan
+
+                se = se + 9
+
+            while echiquier.children[no].text == ' ':
+
+                echiquier.children[no].color = color.cyan
+
+                no = no - 9
+
+            while echiquier.children[so].text == ' ':
+
+                echiquier.children[so].color = color.cyan
+
+                so = so + 7
+
+            while echiquier.children[ne].text == ' ':
+
+                echiquier.children[ne].color = color.cyan
+
+                ne = ne - 7
+
+            else:
+                t = 0
+        else:
+            t = 0
 
 
 def reset_show():
 
+    print("RESET")
+
     global echiquier
     global c
-
-    print('reset')
 
     for lignes in range(8):
         for colonnes in range(8):
@@ -328,6 +411,26 @@ def reset_show():
                                            colonnes].color = color.dark_gray
 
 
+def list_to_table(list, table):
+
+    for b in range(8):
+        for m in range(8):
+            # print(b*8+m)
+            table[b][m] = list[b*8 + m]
+
+    return table
+
+
+def table_to_list(table, list):
+
+    for b in range(8):
+        for m in range(8):
+            # print(b*8+m)
+            list[b*8+m] = table[b][m]
+
+    return lis
+
+
 def update():
 
     global cpt
@@ -357,7 +460,17 @@ def update():
             # print(mouse.hovered_entity.color)
 
             if mouse.hovered_entity.text != ' ':
-                available_move()
+               # available_move()
+                test()
+
+                n = 0
+                ne = 0
+                e = 0
+                se = 0
+                s = 0
+                so = 0
+                o = 0
+                no = 0
             else:
                 reset_show()
         except:
@@ -420,7 +533,29 @@ grid_layout(echiquier.children, max_x=8, max_y=8,
 camera.position = (0, -0.4, -2)
 
 print("TEST")
-print(echiquier.children[8].text)
-print("TEST")
+print(type(echiquier.children))
+
+echiquier_tab = [[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]
+
+echiquier_list_copy = []
+for z in range(64):
+    echiquier_list_copy.append(' ')
+
+print(np.matrix(echiquier_tab))
+
+'''for b in range(8):
+    for m in range(8):
+        # print(b*8+m)
+        echiquier_tab[b][m] = echiquier.children[b*8 + m]'''
+
+print(np.matrix(echiquier_tab))
+print(echiquier_list_copy)
 
 app.run()
